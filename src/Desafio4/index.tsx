@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 
 /* TODO
   Existe neste componente alguns problemas.
@@ -12,35 +12,47 @@ import React, {useEffect, useState} from 'react';
   - Não usar mais de um useEffect.
   - O cálculo do total deverá ser feito no useEffect.
   - As alterações do estados da lista e total deverá ocorrer no useEffect.
+
+  Resolvi o problema colocando count3, count2, count1 como parametro de atualização do useEffect. Assim ele só irá atualizar quando clicado no btn-1, btn-2 ou btn-3, o que fará com que o estados count3, count2, count1 sejam modificado e assim dando gatilho para execução da lógica do totalCount dentro do useEffect
 */
 
 export const Desafio4 = () => {
-  const [count1, setCount1] = useState(0)
-  const [count2, setCount2] = useState(0)
-  const [count3, setCount3] = useState(0)
-  const [list, setList] = useState<number[]>([])
-  const [total, setTotal] = useState(0)
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  const [list, setList] = useState<number[]>([]);
+  const [total, setTotal] = useState(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     const totalCount = count1 + count2 + count3;
-    setTotal(totalCount)
-    setList([...list, totalCount])
-  },[count3, count2, list])
+    setTotal(totalCount);
 
-  const addCount1 = ()=>setCount1(count1 + 1)
-  const addCount2 = ()=>setCount2(count2 + 1)
-  const addCount3 = ()=>setCount3(count3 + 1)
+    setList([...list, totalCount]);
+  }, [count3, count2, count1]);
+
+  const addCount1 = () => setCount1(count1 + 1);
+  const addCount2 = () => setCount2(count2 + 1);
+  const addCount3 = () => setCount3(count3 + 1);
 
   return (
     <>
-      <button onClick={addCount1} data-testid="btn1">adiciona + 1 na contagem 1</button><br/>
-      <button onClick={addCount2} data-testid="btn2">adiciona + 1 na contagem 2</button><br/>
-      <button onClick={addCount3} data-testid="btn3">adiciona + 1 na contagem 3</button><br/>
+      <button onClick={addCount1} data-testid="btn1">
+        adiciona + 1 na contagem 1
+      </button>
+      <br />
+      <button onClick={addCount2} data-testid="btn2">
+        adiciona + 1 na contagem 2
+      </button>
+      <br />
+      <button onClick={addCount3} data-testid="btn3">
+        adiciona + 1 na contagem 3
+      </button>
+      <br />
       <p data-testid="v1">v1: {count1}</p>
       <p data-testid="v2">v2: {count2}</p>
       <p data-testid="v3">v3: {count3}</p>
       <p data-testid="total">total: {total}</p>
       <p data-testid="length">tamanho da lista: {list.length}</p>
     </>
-  )
-}
+  );
+};
